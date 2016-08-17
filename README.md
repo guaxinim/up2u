@@ -1,2 +1,4 @@
 # up2u
-A project using jOOQ that persists data in an abstract way independent of the RDBMS. So far the project uses Postgres and Tibero.
+
+A project that uses jOOQ to abstracts the RDBMS and persist data in a generic way independently of the dialect. 
+So far the project uses Postgres and Tibero.

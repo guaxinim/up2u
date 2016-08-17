@@ -252,23 +252,23 @@
 			    <artifactId>jboss-as-maven-plugin</artifactId>
 			        <version>7.4.Final</version>
 				    <executions>
-					            <execution>
-							                <phase>install</phase>
-									            <goals>
-											                    <goal>deploy</goal>
-													                </goals>
-															            <configuration>
-																	                    <hostname>localhost</hostname>
-																			                    <port>9990</port>
-																					                    <!--
-																								                 <domain>
-																										                     <server-groups>
-																												                             <server-group>group1</server-group>
-																															                         </server-groups>
-																																		                 </domain>
-																																				                 -->
-            </configuration>
-	            </execution>
+			           <execution>
+		               <phase>install</phase>
+		            <goals>
+		                 <goal>deploy</goal>
+			               </goals>
+				        <configuration>
+			                   <hostname>localhost</hostname>
+			                    <port>9990</port>
+	              <!--
+	                 <domain>
+   	                  <server-groups>
+                             <server-group>group1</server-group>
+                          </server-groups>
+	                 </domain>
+  	               -->
+            				</configuration>
+	            		</execution>
 		        </executions>
 		</plugin>
 

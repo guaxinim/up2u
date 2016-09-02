@@ -10,18 +10,20 @@
     <packaging>war</packaging>
 
 
-    <!-- PARAMETROS DIVERSOS - VERSOES DE BIBLIOTECAS -->
+    <!-- PARAMETERS - LIB VERSIONS -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.javax.jee.api.version>6.0</version.javax.jee.api.version>
-        <version.org.wildfly>8.0.0.Final</version.org.wildfly>
+        <version.wildfly>8.1.0.CR1</version.wildfly>
         <version.arquillian_core>1.1.4.Final</version.arquillian_core>
+        <version.jooq>3.8.4</version.jooq>
+        <version.org.wildfly>8.0.0.Final</version.org.wildfly>
     </properties>
 
 
 
-    <!-- DEPENDENCIAS -->
+    <!-- DEPENDENCIES -->
 
     <dependencyManagement>
         <dependencies>
@@ -61,7 +63,7 @@
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-arquillian-container-embedded</artifactId>
-            <version>8.1.0.CR1</version>
+            <version>${version.wildfly}</version>
             <scope>test</scope>
         </dependency>
 
@@ -75,7 +77,7 @@
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-embedded</artifactId>
-            <version>8.1.0.CR1</version>
+            <version>${version.wildfly}</version>
             <scope>test</scope>
         </dependency>
 
@@ -153,7 +155,6 @@
             <version>2.0</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.jboss.weld</groupId>
             <artifactId>weld-core</artifactId>
@@ -168,17 +169,28 @@
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>net.sourceforge.cobertura</groupId>
             <artifactId>cobertura</artifactId>
             <version>2.1.1</version>
         </dependency>
+
+        <!-- jOOQ -->
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>${version.jooq}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta</artifactId>
+            <version>${version.jooq}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen</artifactId>
+            <version>${version.jooq}</version>
+        </dependency>
+        <!-- jOOQ -->
 
     </dependencies>
 
@@ -186,10 +198,10 @@
 
 
 
-    <!-- PLUGINS PARA O BUILD -->
+    <!-- PLUGINS -->
 
     <build>
-        <finalName>abc-backend</finalName>
+        <finalName>up2u</finalName>
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
@@ -204,8 +216,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
 
@@ -247,30 +259,57 @@
                 </configuration>
             </plugin>
 
-	    <plugin>
-		        <groupId>org.jboss.as.plugins</groupId>
-			    <artifactId>jboss-as-maven-plugin</artifactId>
-			        <version>7.4.Final</version>
-				    <executions>
-			           <execution>
-		               <phase>install</phase>
-		            <goals>
-		                 <goal>deploy</goal>
-			               </goals>
-				        <configuration>
-			                   <hostname>localhost</hostname>
-			                    <port>9990</port>
-	              <!--
-	                 <domain>
-   	                  <server-groups>
-                             <server-group>group1</server-group>
-                          </server-groups>
-	                 </domain>
-  	               -->
-            				</configuration>
-	            		</execution>
-		        </executions>
-		</plugin>
+
+
+        <plugin>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen-maven</artifactId>
+            <version>${version.jooq}</version>
+
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                </execution>
+            </executions>
+
+            <!-- Manage the plugin's dependency. In this example, we'll use a PostgreSQL database -->
+            <dependencies>
+                <dependency>
+                    <groupId>postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>8.4-702.jdbc4</version>
+                </dependency>
+            </dependencies>
+
+            <!-- Specify the plugin configuration.
+                 The configuration format is the same as for the standalone code generator -->
+            <configuration>
+
+                <!-- JDBC connection parameters -->
+                <jdbc>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>jdbc:postgresql:abc</url>
+                    <user>postgres</user>
+                    <password>postgres</password>
+                </jdbc>
+
+                <!-- Generator parameters -->
+                <generator>
+                    <database>
+                        <name>org.jooq.util.postgres.PostgresDatabase</name>
+                        <includes>.*</includes>
+                        <excludes></excludes>
+                        <inputSchema>public</inputSchema>
+                    </database>
+                    <target>
+                        <packageName>org.jooq.util.maven.example</packageName>
+                        <directory>target/generated-sources/jooq</directory>
+                    </target>
+                </generator>
+            </configuration>
+        </plugin>
 
         </plugins>
     </build>

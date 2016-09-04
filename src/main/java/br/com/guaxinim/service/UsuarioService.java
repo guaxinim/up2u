@@ -1,11 +1,8 @@
 package br.com.guaxinim.service;
 
 import br.com.guaxinim.entities.Usuario;
-import org.jooq.Configuration;
-import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
+import org.jooq.*;
 import org.jooq.impl.DSL;
-import org.jooq.util.maven.example.tables.records.UsuarioRecord;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -15,10 +12,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.sql.DataSource;
-import javax.xml.bind.JAXB;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import static org.jooq.util.maven.example.Tables.USUARIO;
 
 @Stateless
 public class UsuarioService {
@@ -58,16 +54,21 @@ public class UsuarioService {
         return result.getResultList();
     }
 
-    public List<Usuario> listaUsuarios() {
-        Configuration configuration = JAXB.unmarshal(new File("jooq.xml"), Configuration.class);
-        List<Usuario> usuarios =
-                nativeQuery(entityManager,
+    public Result<Record> listaUsuarios() {
+        //Configuration configuration = JAXB.unmarshal(new File("jooq.xml"), Configuration.class);
+        DSLContext context = DSL.using(dataSource, SQLDialect.POSTGRES_9_3);
+        Result<Record> usuarios =
+                context.select()
+                .from(USUARIO)
+                .fetch();
+
+                /*nativeQuery(entityManager,
                         DSL.using(configuration)
                                 .select()
-                                .from(org.jooq.util.maven.example.tables.Usuario)
-                        , Usuario.class);
+                                .from(UsuarioRecord.as("a"))
+                        , Usuario.class);*/
         usuarios.forEach(usuario -> {
-            System.out.println(usuario.getNome() + " " + usuario.getCpf() + " wrote");
+            System.out.println(USUARIO.NOME + " - ID: " + USUARIO.CPF);
             /*books.forEach(book -> {
                 //System.out.println("  " + book.title);
             });*/

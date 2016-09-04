@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="up2u:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="abc-backend.war">
+      <element id="artifact" artifact-name="up2u:war exploded" />
+    </root>
+  </artifact>
+</component>

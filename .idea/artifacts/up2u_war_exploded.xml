@@ -1,0 +1,72 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="up2u:war exploded">
+    <output-path>$PROJECT_DIR$/target/up2u</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="up2u" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: javax.enterprise:cdi-api:1.1" />
+          <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
+          <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.1.4.GA" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.5" />
+          <element id="library" level="project" name="Maven: org.jboss:jandex:1.1.0.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.spec.javax.ejb:jboss-ejb-api_3.1_spec:1.0.2.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:4.3.11.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging-annotations:1.2.0.Beta1" />
+          <element id="library" level="project" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.0.0.Final" />
+          <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
+          <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:4.0.5.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
+          <element id="library" level="project" name="Maven: org.javassist:javassist:3.18.1-GA" />
+          <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
+          <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-entitymanager:4.3.11.Final" />
+          <element id="library" level="project" name="Maven: postgresql:postgresql:8.4-702.jdbc4" />
+          <element id="library" level="project" name="Maven: javax.validation:validation-api:1.1.0.Final" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.2.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.2.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.2.1" />
+          <element id="library" level="project" name="Maven: org.jboss.resteasy:resteasy-jackson2-provider:3.0.2.Final" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.2.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.2.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.2.1" />
+          <element id="library" level="project" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0" />
+          <element id="library" level="project" name="Maven: org.jboss.weld:weld-core:1.1.31.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.weld:weld-api:1.1.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.weld:weld-spi:1.1.Final" />
+          <element id="library" level="project" name="Maven: javax.annotation:jsr250-api:1.0" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:13.0.1" />
+          <element id="library" level="project" name="Maven: org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec:1.0.0.Beta1" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-ext:1.7.2" />
+          <element id="library" level="project" name="Maven: ch.qos.cal10n:cal10n-api:0.7.7" />
+          <element id="library" level="project" name="Maven: net.sourceforge.cobertura:cobertura:2.1.1" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm:5.0.1" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm-tree:5.0.1" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm-commons:5.0.1" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm-util:5.0.1" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm-analysis:5.0.1" />
+          <element id="library" level="project" name="Maven: oro:oro:2.0.8" />
+          <element id="library" level="project" name="Maven: jaxen:jaxen:1.1.4" />
+          <element id="library" level="project" name="Maven: org.apache.ant:ant:1.8.3" />
+          <element id="library" level="project" name="Maven: org.apache.ant:ant-launcher:1.8.3" />
+          <element id="library" level="project" name="Maven: org.apache.ant:ant-junit:1.8.3" />
+          <element id="library" level="project" name="Maven: org.mortbay.jetty:servlet-api-2.5:6.1.14" />
+          <element id="library" level="project" name="Maven: org.mortbay.jetty:jetty:6.1.14" />
+          <element id="library" level="project" name="Maven: org.mortbay.jetty:jetty-util:6.1.14" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.0.13" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.0.13" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.3.2" />
+          <element id="library" level="project" name="Maven: org.jooq:jooq:3.8.4" />
+          <element id="library" level="project" name="Maven: org.jooq:jooq-meta:3.8.4" />
+          <element id="library" level="project" name="Maven: org.jooq:jooq-codegen:3.8.4" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/up2u/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="up2u/web/Web" />
+    </root>
+  </artifact>
+</component>

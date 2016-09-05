@@ -7,8 +7,6 @@ import org.jooq.util.maven.example.tables.records.UsuarioRecord;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
@@ -25,14 +23,6 @@ public class UsuarioService {
     @Resource(lookup="java:jboss/datasources/jooqDS")
     DataSource dataSource;
 
-    @Produces
-    public DSLContext jooq() {
-        return DSL.using(dataSource, SQLDialect.POSTGRES);
-    }
-
-    @Inject
-    private DSLContext ctx;
-
     public void inserirUsuario(Usuario u) {
         entityManager.persist(u);
     }
@@ -40,7 +30,9 @@ public class UsuarioService {
         return entityManager.find(Usuario.class, id);
     }
     public List<Usuario> getUsuarios() {
-        return entityManager.createNamedQuery("Usuario.findAll").getResultList();
+        // Using JOOQ instead of JPA
+        // return entityManager.createNamedQuery("Usuario.findAll").getResultList();
+        return listaUsuarios();
     }
     public void removerUsuario(Integer codigoUsuario) {
         Usuario usuario = entityManager.find(Usuario.class, codigoUsuario);
@@ -77,12 +69,12 @@ public class UsuarioService {
                                 .select()
                                 .from(UsuarioRecord.as("a"))
                         , Usuario.class);*/
-        usuarios.forEach(usuario -> {
-            System.out.println(USUARIO.NOME + " - ID: " + USUARIO.CPF);
+        //usuarios.forEach(usuario -> {
+            //System.out.println(USUARIO.NOME + " - ID: " + USUARIO.CPF);
             /*books.forEach(book -> {
                 //System.out.println("  " + book.title);
             });*/
-        });
+        //});
         return usuarios;
     }
 

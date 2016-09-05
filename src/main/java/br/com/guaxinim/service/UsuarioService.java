@@ -3,6 +3,7 @@ package br.com.guaxinim.service;
 import br.com.guaxinim.entities.Usuario;
 import org.jooq.*;
 import org.jooq.impl.DSL;
+import org.jooq.util.maven.example.tables.records.UsuarioRecord;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -10,7 +11,6 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,29 +39,39 @@ public class UsuarioService {
     public Usuario getUsuario(Integer id) {
         return entityManager.find(Usuario.class, id);
     }
-    public List<Usuario> getUsuarios() { return entityManager.createNamedQuery("Usuario.findAll").getResultList();}
+    public List<Usuario> getUsuarios() {
+        return entityManager.createNamedQuery("Usuario.findAll").getResultList();
+    }
     public void removerUsuario(Integer codigoUsuario) {
         Usuario usuario = entityManager.find(Usuario.class, codigoUsuario);
         entityManager.remove(usuario);
     }
 
-    public static <E> List<E> nativeQuery(EntityManager em, org.jooq.Query query, Class<E> type) {
-        Query result = em.createNativeQuery(query.getSQL(), type);
-        List<Object> values = query.getBindValues();
-        for (int i = 0; i < values.size(); i++) {
-            result.setParameter(i + 1, values.get(i));
-        }
-        return result.getResultList();
-    }
 
-    public Result<Record> listaUsuarios() {
+    public List<Usuario> listaUsuarios() {
         //Configuration configuration = JAXB.unmarshal(new File("jooq.xml"), Configuration.class);
         DSLContext context = DSL.using(dataSource, SQLDialect.POSTGRES_9_3);
-        Result<Record> usuarios =
-                context.select()
-                .from(USUARIO)
-                .fetch();
+        RecordMapper rec = new RecordMapper() {
+            @Override
+            public Usuario map(Record record) {
+                UsuarioRecord r = (UsuarioRecord) record;
+                Usuario u = new Usuario();
+                u.setCodigoUsuario(r.getCodigousuario());
+                u.setNome(r.getNome());
+                u.setCpf(r.getCpf());
+                u.setNascimento(r.getNascimento());
+                u.setObservacao(r.getObservacao());
+                u.setTelefone(r.getTelefone());
+                return u;
+            }
+        };
 
+        List<Usuario> usuarios =
+            context.select()
+                .from(USUARIO)
+                .fetch()
+                .map(rec);
+                //.map(rec);
                 /*nativeQuery(entityManager,
                         DSL.using(configuration)
                                 .select()

@@ -52,4 +52,13 @@ public class UsuarioRest {
         usuarioService.removerUsuario(param);
         return Response.status(Response.Status.OK).entity("Usuario inserido").build();
     }
+
+    @GET
+    @Path("lista")
+    @Produces("application/json")
+    public List<Usuario> getListaUsuarios(@Context final HttpServletResponse response) {
+        List<Usuario> usuarios = usuarioService.listaUsuarios();
+        //List<Usuario> usuarios = usuarioService.getUsuarios();
+        return usuarios;
+    }
 }

@@ -53,7 +53,7 @@ public class UsuarioRest {
     public Response removerUsuario(@PathParam("id") String id, @Context final HttpServletResponse response) {
         Integer param = Integer.valueOf(id);
         usuarioService.removerUsuario(param);
-        return Response.status(Response.Status.OK).entity("Usuario inserido").build();
+        return Response.status(Response.Status.OK).entity("Usuario removido").build();
     }
 
     @GET

@@ -10,6 +10,8 @@ import org.jooq.util.maven.example.tables.records.UsuarioRecord;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
@@ -49,13 +51,21 @@ public class UsuarioJooqService implements UsuarioService {
     }
     @Override
     public Usuario obterUsuario(Integer id) {
-        return entityManager.find(Usuario.class, id);
+        context = DSL.using(dataSource, SQLDialect.POSTGRES_9_3);
+        Usuario usuario = context.select()
+                .from(USUARIO)
+                .where(USUARIO.CODIGOUSUARIO.equal(id))
+                .fetchAny()
+                .into(Usuario.class);
+        return usuario;
     }
 
     @Override
     public void removerUsuario(Integer codigoUsuario) {
-        Usuario usuario = entityManager.find(Usuario.class, codigoUsuario);
-        entityManager.remove(usuario);
+        context = DSL.using(dataSource, SQLDialect.POSTGRES_9_3);
+        context.delete(USUARIO)
+                .where(USUARIO.CODIGOUSUARIO.equal(codigoUsuario))
+                .execute();
     }
 
 
@@ -63,7 +73,15 @@ public class UsuarioJooqService implements UsuarioService {
     public List<Usuario> listarUsuarios() {
         //Configuration configuration = JAXB.unmarshal(new File("jooq.xml"), Configuration.class);
         context = DSL.using(dataSource, SQLDialect.POSTGRES_9_3);
-        RecordMapper rec = new RecordMapper() {
+        List<Usuario> usuarios = context.select()
+                .from(USUARIO)
+                .fetch()
+                .map(getRecordMapper());
+        return usuarios;
+    }
+
+    RecordMapper getRecordMapper() {
+        return new RecordMapper() {
             @Override
             public Usuario map(Record record) {
                 UsuarioRecord r = (UsuarioRecord) record;
@@ -77,12 +95,6 @@ public class UsuarioJooqService implements UsuarioService {
                 return u;
             }
         };
-
-        List<Usuario> usuarios = context.select()
-                .from(USUARIO)
-                .fetch()
-                .map(rec);
-        return usuarios;
     }
 
 }

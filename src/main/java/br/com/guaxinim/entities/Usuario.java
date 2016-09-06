@@ -92,4 +92,16 @@ public class Usuario implements Serializable {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "codigoUsuario=" + codigoUsuario +
+                ", nome='" + nome + '\'' +
+                ", nascimento=" + nascimento +
+                ", cpf='" + cpf + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", observacao='" + observacao + '\'' +
+                '}';
+    }
 }

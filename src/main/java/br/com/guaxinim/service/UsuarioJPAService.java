@@ -15,10 +15,6 @@ public class UsuarioJPAService implements UsuarioService {
 
     static Logger logger = Logger.getLogger(UsuarioJPAService.class.getName());
 
-    public UsuarioJPAService() {
-        logger.info("UsuarioJPAService");
-    }
-
     @PersistenceContext
     EntityManager entityManager;
 

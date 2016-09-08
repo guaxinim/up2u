@@ -1,4 +1,5 @@
 package br.com.guaxinim.api;
+
 import br.com.guaxinim.entities.Usuario;
 import br.com.guaxinim.service.UsuarioService;
 

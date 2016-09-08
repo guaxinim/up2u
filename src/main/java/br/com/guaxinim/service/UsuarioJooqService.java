@@ -30,10 +30,10 @@ public class UsuarioJooqService implements UsuarioService {
     }
 
     @Override
-    public Usuario obterUsuario(Integer id) {
+    public Usuario obterUsuario(Integer codigoUsuario) {
         Usuario usuario = context.select()
                 .from(USUARIO)
-                .where(USUARIO.CODIGOUSUARIO.equal(id))
+                .where(USUARIO.CODIGOUSUARIO.equal(codigoUsuario))
                 .fetchAny()
                 .into(Usuario.class);
         logger.fine("Usuario retornado");

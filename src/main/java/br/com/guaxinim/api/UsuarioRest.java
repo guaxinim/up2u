@@ -42,8 +42,6 @@ public class UsuarioRest {
     @Path("usuario")
     @Consumes("application/json")
     public Response inserirUsuario(Usuario usuario, @Context final HttpServletResponse response) {
-        // disabled to use jOOQ
-        //usuario.setCodigoUsuario(null);
         usuarioService.inserirUsuario(usuario);
         return Response.status(Response.Status.CREATED).entity("Usuario inserido").build();
     }

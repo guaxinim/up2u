@@ -4,6 +4,7 @@ import br.com.guaxinim.entities.Usuario;
 import br.com.guaxinim.setup.JooqContextProducer;
 import org.jooq.DSLContext;
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.logging.Logger;
@@ -18,15 +19,19 @@ public class UsuarioJooqService implements UsuarioService {
     @Inject @JooqContextProducer
     DSLContext context;
 
+    @Inject
+    Event<Integer> usuarioEvent;
+
     @Override
     public void inserirUsuario(Usuario u) {
-        context.insertInto(USUARIO)
+        int cod = context.insertInto(USUARIO)
                 .set(USUARIO.CODIGOUSUARIO, u.getCodigoUsuario())
                 .set(USUARIO.NOME, u.getNome())
                 .set(USUARIO.CPF, u.getCpf())
                 .set(USUARIO.TELEFONE, u.getTelefone())
                 .execute();
         logger.fine("Usuario inserido");
+        usuarioEvent.fire(cod);
     }
 
     @Override
